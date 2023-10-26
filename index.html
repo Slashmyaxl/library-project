@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width initial-scale=1.0">
+            <title>Library Project</title>
+            <link rel="stylesheet" href="styles.css">
+            <script src="library.js" defer></script>
+        </head>
+        <body>
+            <h1>My Library</h1>
+            <div class="new-book">
+                <button class="new" id="enable-form">New Book</button>
+                <form action="" id="book-form" hidden>
+                    <div class="form-input">
+                        <label for="title">Title: </label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div class="form-input">
+                        <label for="author">Author: </label>
+                        <input type="text" id="author" name="author" value="J.R.R. Tolkien">
+                    </div>
+                    <div class="form-input">
+                        <label for="pages">Pages: </label>
+                        <input type="tel" id="pages" name="pages">
+                    </div>
+                    <ul>
+                        <li>
+                            <label for="read">Read: </label>
+                            <input type="radio" id="read" name="read" value="read">
+                        </li>
+                        <li>
+                            <label for="unread">Unread: </label>
+                            <input type="radio" id="unread" name="read" value="unread">
+                        </li>
+                    </ul>
+                    <button class="new" id="add">Add to Library</button>
+                </form>
+            </div>
+            <table>
+                <caption>My Library of Books</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Pages</th>
+                        <th scope="col">Read</th>
+                        <th scope="col"></th>   
+                    </tr>
+                </thead>
+
+                <tbody class="bookshelf">
+                  
+                </tbody>
+            </table>
+        </body>
+    </html>
