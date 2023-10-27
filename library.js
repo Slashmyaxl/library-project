@@ -6,7 +6,7 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.read = isRead(read);
-
+        
         function isRead(read) {
             return Boolean(read) === true ? 'Read' : 'Unread';
         }
@@ -56,7 +56,7 @@ function tabulateLibrary(array) {
         const readButton = document.createElement('button');
         readButton.setAttribute('class', 'status');
         readButton.setAttribute('id', `${object.read.toLowerCase()}`);
-        readButton.textContent = `${object.read}`;
+        object.read === 'Read' ? readButton.textContent = 'Read' : readButton.textContent = 'Not Read';
         bookRead.appendChild(readButton);
 
         const bookRemove = document.createElement('td');
@@ -74,6 +74,8 @@ function tabulateLibrary(array) {
         newSlot.appendChild(bookRead);
         newSlot.appendChild(bookRemove);
     });
+
+    //Buttons on table only work properly after array cycled through
 
     readButtons = document.querySelectorAll('.status');
     removeButtons = document.querySelectorAll('.remove');
@@ -113,7 +115,7 @@ addBookButton.addEventListener('click', function(event) {
     const pages = document.getElementById('pages');
     const read = document.getElementById('read');
     
-    const newBook = new Book (title.value, author.value, pages.value, read.value);
+    const newBook = new Book (title.value, author.value, pages.value, read.checked);
     addBookToLibrary(newBook);
 })
 

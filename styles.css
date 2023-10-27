@@ -50,6 +50,8 @@ h1 {
 
 #add {
     background-color: hsl(221, 95%, 48%);
+    display: block;
+    margin-top: 2px;
 }
 
 form {
@@ -76,7 +78,8 @@ form > div > label {
 }
 
 form input[type=text],
-form input[type=tel] {
+form input[type=tel],
+form input[type=checkbox] {
     display: inline-block;
     width: 260px;
     height: 1.8rem;
@@ -84,16 +87,17 @@ form input[type=tel] {
     margin: 6px 2px;
     border: 1px solid lightgray;
     border-radius: 6px;
+    vertical-align: middle;
+}
+
+form input[type=checkbox] {
+    outline: none;
+    width: 20px;
 }
 
 form input[type=text]:focus {
     border: 2px solid gray;
     outline: none;
-}
-
-form input[type=radio] {
-    display: inline-block;
-    vertical-align: middle;
 }
 
 table {
@@ -108,6 +112,7 @@ table {
 table button {
     padding: 4px;
     width: 5rem;
+    border: 1px solid #999;
 }
 
 table button.remove {
