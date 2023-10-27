@@ -100,7 +100,6 @@ function tabulateLibrary(array) {
     });
 }
 
-
 // Buttons
 
 enableForm.addEventListener('click', () => {
