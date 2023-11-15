@@ -5,11 +5,12 @@ class Book {
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.read = isRead(read);
-        
-        function isRead(read) {
-            return Boolean(read) === true ? 'Read' : 'Unread';
-        }
+
+        Object.defineProperty(this, 'read', {
+            get () {
+                return Boolean(read) === true? 'Read' : 'Unread';
+            }
+        });
     }
 }
 
