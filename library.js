@@ -1,25 +1,23 @@
 const myLibrary = [];
 
-class Book {
-    constructor(title, author, pages, read) {
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-
-        Object.defineProperty(this, 'read', {
-            get () {
-                return Boolean(read) === true? 'Read' : 'Unread';
-            }
-        });
-    }
-}
+const title = document.getElementById('title');
+const author = document.getElementById('author');
+const pages = document.getElementById('pages');
+const read = document.getElementById('read');
 
 const enableForm = document.querySelector('#enable-form');
 const form = document.querySelector('#book-form');
 const addBookButton = document.getElementById('add');
 const bookshelf = document.querySelector('.bookshelf');
-let readButtons;
-let removeButtons;
+
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+}
 
 let book1 = new Book('Fahrenheit 451', 'Ray Bradbury', 459, true);
 let book2 = new Book('Macbeth', 'William Shakespeare', 231, false);
@@ -55,14 +53,27 @@ function tabulateLibrary(array) {
 
         const bookRead = document.createElement('td');
         const readButton = document.createElement('button');
-        readButton.setAttribute('class', 'status');
-        readButton.setAttribute('id', `${object.read.toLowerCase()}`);
-        object.read === 'Read' ? readButton.textContent = 'Read' : readButton.textContent = 'Not Read';
+        readButton.className = `read ${object.read}`
+        object.read === true ? readButton.textContent = 'Read' : readButton.textContent = 'Not Read';
+            readButton.addEventListener('click', (e) => {
+                console.log(e.target);
+                console.log(object.read);
+    
+                if (object.read === true) {
+                    object.read = false;
+                    e.target.className = 'read false';
+                    e.target.textContent = 'Not Read';
+                } else {
+                    object.read = true;
+                    e.target.className = 'read true';
+                    e.target.textContent = 'Read';
+                }    
+            });
         bookRead.appendChild(readButton);
 
         const bookRemove = document.createElement('td');
         const removeButton = document.createElement('button');
-        removeButton.setAttribute('class', 'remove');
+        removeButton.classList.add('remove');
         removeButton.setAttribute('id', `${array.indexOf(object)}`)
         removeButton.textContent = 'X';
         
@@ -76,10 +87,7 @@ function tabulateLibrary(array) {
         newSlot.appendChild(bookRemove);
     });
 
-    //Buttons on table only work properly after array cycled through
-
-    readButtons = document.querySelectorAll('.status');
-    removeButtons = document.querySelectorAll('.remove');
+    let removeButtons = document.querySelectorAll('.remove');
 
     removeButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -87,19 +95,7 @@ function tabulateLibrary(array) {
             tabulateLibrary(myLibrary);
         });
     });
-
-    readButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (button.getAttribute('id') === 'unread') {
-                button.setAttribute('id', 'read');
-                button.textContent = 'Read';
-            } else {
-                button.setAttribute('id', 'unread');
-                button.textContent = 'Not Read';
-            }    
-        });
-    });
-}
+};
 
 // Buttons
 
@@ -107,15 +103,40 @@ enableForm.addEventListener('click', () => {
     form.toggleAttribute('hidden');
 });
 
-addBookButton.addEventListener('click', function(event) {
+pages.addEventListener('input', checkPages);
 
-    event.preventDefault();
-    const title = document.getElementById('title');
-    const author = document.getElementById('author');
-    const pages = document.getElementById('pages');
-    const read = document.getElementById('read');
-    
-    const newBook = new Book (title.value, author.value, pages.value, read.checked);
-    addBookToLibrary(newBook);
-})
+function checkPages () {
+    const error = document.querySelector('#pages + span.error');
 
+    if (pages.validity.patternMismatch) {
+        error.textContent = 'Please enter number of pages.';
+        error.className = 'error active';
+    } else {
+        error.className = 'error';
+        error.textContent = '';
+    }
+}
+
+function checkTitle () {
+    const error = document.querySelector('#title + span.error');
+
+    if (!title.validity.valid) {
+        error.textContent = 'Please enter a title.';
+        error.className = 'error active';
+    } else {
+        error.className = 'error';
+        error.textContent = '';
+    }
+}
+
+form.addEventListener('submit', function(event) {
+    checkTitle();
+
+    if (!pages.validity.valid | !title.validity.valid) {
+        event.preventDefault();
+    } else {
+        const newBook = new Book (title.value, author.value, pages.value, read.checked);
+        addBookToLibrary(newBook);
+        event.preventDefault();
+    }
+});

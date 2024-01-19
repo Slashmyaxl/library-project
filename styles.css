@@ -77,6 +77,11 @@ form > div > label {
     vertical-align: middle;
 }
 
+.form-input {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
 form input[type=text],
 form input[type=tel],
 form input[type=checkbox] {
@@ -98,6 +103,30 @@ form input[type=checkbox] {
 form input[type=text]:focus {
     border: 2px solid gray;
     outline: none;
+}
+
+form input:invalid {
+    background: #fdd
+}
+
+form input:focus:invalid {
+    background: #fefefe;
+}
+
+.error {
+    position: absolute;
+    left: 78px;
+    top: 34px;
+    margin: 0;
+    width: 75%;
+    background-color: rgb(206, 45, 16);
+    color: #fefefe;
+    font-size: 60%;
+    border-radius: 0 0 5px 5px;
+}
+
+.error.active {
+    padding: 0.25em;
 }
 
 table {
@@ -142,10 +171,14 @@ button:hover {
     cursor: pointer;
 }
 
-#read {
+.bookshelf > tr > td:first-child {
+    font-weight: bolder;
+}
+
+.read.true {
     background-color: var(--color-read);
 }
 
-#unread {
+.read.false {
     background-color: var(--color-unread);
 }
